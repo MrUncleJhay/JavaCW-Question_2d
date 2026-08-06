@@ -1,21 +1,12 @@
 package com.exhibition.ui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import com.exhibition.dao.ParticipantDAO;
 import com.exhibition.model.Participant;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.sql.SQLException;
+import java.util.List;
 
 public class ViewParticipantsDialog extends JDialog {
     private JTable table;
