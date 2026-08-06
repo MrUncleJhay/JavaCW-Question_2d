@@ -1,0 +1,1 @@
+vu.exhibition.ExhibitionRegistrationForm

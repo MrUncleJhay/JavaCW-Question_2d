@@ -1,0 +1,21 @@
+exhibition-registration/
+├── pom.xml
+└── src/
+    └── main/
+        ├── java/
+        │   └── com/
+        │       └── exhibition/
+        │           ├── dao/
+        │           │   └── ParticipantDAO.java
+        │           ├── database/
+        │           │   └── DatabaseConnection.java
+        │           ├── model/
+        │           │   └── Participant.java
+        │           ├── ui/
+        │           │   ├── MainFrame.java
+        │           │   └── ViewParticipantsDialog.java
+        │           └── util/
+        │               ├── ConfigLoader.java
+        │               └── ValidationUtils.java
+        └── resources/
+            └── config.properties
