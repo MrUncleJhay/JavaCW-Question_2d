@@ -6,11 +6,11 @@ exhibition-registration/
     │   ├── java/vu/exhibition/
     │   │   ├── model/
     │   │   │   └── Participant.java        ✅
-    │   │   ├── dao/                        (Part 4)
+    │   │   ├── dao/                        
     │   │   ├── database/
     │   │   │   └── DatabaseConnection.java ✅
-    │   │   ├── ui/                         (Parts 5–6)
-    │   │   └── util/                       ✅ (Part 2)
+    │   │   ├── ui/                         
+    │   │   └── util/                       ✅
     │   └── resources/
     │       └── config.properties    ✅
     └── test/java/vu/exhibition/
