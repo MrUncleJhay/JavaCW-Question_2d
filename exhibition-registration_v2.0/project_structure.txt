@@ -1,21 +1,16 @@
 exhibition-registration/
-├── pom.xml
+├── pom.xml                          ✅
+├── .gitignore                       ✅
 └── src/
-    └── main/
-        ├── java/
-        │   └── vu/
-        │       └── exhibition/
-        │           ├── dao/
-        │           │   └── ParticipantDAO.java
-        │           ├── database/
-        │           │   └── DatabaseConnection.java
-        │           ├── model/
-        │           │   └── Participant.java
-        │           ├── ui/
-        │           │   ├── MainFrame.java
-        │           │   └── ViewParticipantsDialog.java
-        │           └── util/
-        │               ├── ConfigLoader.java
-        │               └── ValidationUtils.java
-        └── resources/
-            └── config.properties
+    ├── main/
+    │   ├── java/vu/exhibition/
+    │   │   ├── model/
+    │   │   │   └── Participant.java        ✅
+    │   │   ├── dao/                        (Part 4)
+    │   │   ├── database/
+    │   │   │   └── DatabaseConnection.java ✅
+    │   │   ├── ui/                         (Parts 5–6)
+    │   │   └── util/                       ✅ (Part 2)
+    │   └── resources/
+    │       └── config.properties    ✅
+    └── test/java/vu/exhibition/
