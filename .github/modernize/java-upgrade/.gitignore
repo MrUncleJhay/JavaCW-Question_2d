@@ -1,17 +1,2 @@
-# Build output
-target/
 
-# Runtime SQLite database
-*.db
-
-# Compiled classes (if built outside target/)
-*.class
-
-# IDE
-.vscode/
-.classpath
-.project
-.settings/
-
-# OS
-.DS_Store
+**/*
