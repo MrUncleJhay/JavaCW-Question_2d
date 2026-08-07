@@ -1,0 +1,261 @@
+2026-08-06T13:17:03.764Z [INFO] ----------------------invoke appmod-list-jdks----------------------
+2026-08-06T13:17:03.765Z [INFO] [Tool.invoke]({name: appmod-list-jdks, modelId: auto, input: {
+  "sessionId": "",
+  "version": "21",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d"
+}}).
+2026-08-06T13:17:03.765Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:17:11.220Z [INFO] [Tool.invoke]({result: {
+  "message": "We found following jdks in your system:\n\n1. Java 21.0.11\n   📁 Path: /usr/lib/jvm/java-21-openjdk-amd64/bin\n   🏷️ Source: PATH\n\n2. Java 21.0.11\n   📁 Path: /usr/lib/jvm/java-1.21.0-openjdk-amd64/bin\n   🏷️ Source: others\n\nTotal: 2 JDK installation(s) found"
+}}).
+2026-08-06T13:17:11.220Z [INFO] ----------------------invoked appmod-list-jdks----------------------
+2026-08-06T13:17:12.734Z [INFO] ----------------------invoke appmod-list-mavens----------------------
+2026-08-06T13:17:12.734Z [INFO] [Tool.invoke]({name: appmod-list-mavens, modelId: auto, input: {
+  "sessionId": "",
+  "includeVersion": true,
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d"
+}}).
+2026-08-06T13:17:12.734Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:17:41.253Z [INFO] [Tool.invoke]({result: {
+  "message": "We found following maven installations in your system:\n\n1. Maven \n   📁 Path: /usr/share/maven/bin\n   🏷️ Source: PATH,others\n\nTotal: 1 Maven installation(s) found"
+}}).
+2026-08-06T13:17:41.253Z [INFO] ----------------------invoked appmod-list-mavens----------------------
+2026-08-06T13:17:50.618Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-08-06T13:17:50.619Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "precheckCompleted",
+  "status": "succeeded",
+  "phase": "precheck",
+  "details": {
+    "components": [
+      {
+        "name": "jdk",
+        "baseVersion": "21",
+        "targetVersion": "21"
+      }
+    ]
+  },
+  "message": "Detected Java 21 target already set; upgrade target is latest LTS Java 21."
+}}).
+2026-08-06T13:17:50.619Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-08-06T13:17:50.622Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-08-06T13:17:50.622Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-08-06T13:17:50.695Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-08-06T13:17:50.695Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "precheckCompleted",
+  "status": "succeeded",
+  "phase": "precheck",
+  "details": {
+    "components": [
+      {
+        "name": "jdk",
+        "baseVersion": "21",
+        "targetVersion": "21"
+      }
+    ]
+  },
+  "message": "Detected Java 21 target already set; upgrade target is latest LTS Java 21."
+}}).
+2026-08-06T13:17:50.695Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:17:50.704Z [INFO] Project /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d is not a maven project, try to get java version from gradle
+2026-08-06T13:17:50.788Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'precheckCompleted' reported!\nSession ID: 20260806131703,\nSession Dir: /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/.github/modernize/java-upgrade/20260806131703"
+}}).
+2026-08-06T13:17:50.788Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-08-06T13:17:50.849Z [INFO] Try to get java version from gradle config files: 
+2026-08-06T13:17:50.849Z [INFO] Try to get java version from gradle properties: undefined
+2026-08-06T13:17:50.849Z [INFO] Project java version: 8
+2026-08-06T13:17:50.916Z [WARN] [ReportEventTool] Full project info unavailable, attempting lightweight fallback: UserError: Failed to detect build tool for the project at /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d. There are child Maven/Gradle projects detected: "exhibition-registration_v2.0". Would you like to use one of them instead?
+2026-08-06T13:17:50.940Z [INFO] Project /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d is not a maven project, try to get java version from gradle
+2026-08-06T13:17:50.951Z [INFO] Try to get java version from gradle config files: 
+2026-08-06T13:17:50.951Z [INFO] Try to get java version from gradle properties: undefined
+2026-08-06T13:17:54.268Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-08-06T13:17:54.268Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "planGenerationStarted",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Starting upgrade plan generation for Java 21 target."
+}}).
+2026-08-06T13:17:54.268Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-08-06T13:17:54.268Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-08-06T13:17:54.268Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-08-06T13:17:54.349Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-08-06T13:17:54.349Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "planGenerationStarted",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Starting upgrade plan generation for Java 21 target."
+}}).
+2026-08-06T13:17:54.349Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:17:54.350Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'planGenerationStarted' reported!\nSession ID: 20260806131703,\nSession Dir: /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/.github/modernize/java-upgrade/20260806131703"
+}}).
+2026-08-06T13:17:54.350Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-08-06T13:18:58.290Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-08-06T13:18:58.290Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "planReviewed",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Upgrade plan reviewed and ready for execution."
+}}).
+2026-08-06T13:18:58.291Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-08-06T13:18:58.291Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-08-06T13:18:58.291Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-08-06T13:18:58.365Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-08-06T13:18:58.365Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "planReviewed",
+  "status": "succeeded",
+  "phase": "plan",
+  "message": "Upgrade plan reviewed and ready for execution."
+}}).
+2026-08-06T13:18:58.365Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:18:58.366Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'planReviewed' reported!\nSession ID: 20260806131703,\nSession Dir: /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/.github/modernize/java-upgrade/20260806131703"
+}}).
+2026-08-06T13:18:58.367Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-08-06T13:19:31.182Z [INFO] ---------------------prepare appmod-confirm-upgrade-plan----------------------
+2026-08-06T13:19:31.182Z [INFO] [Tool.prepareInvocation]({name: appmod-confirm-upgrade-plan, input: {
+  "sessionId": "20260806131703",
+  "autoExecute": true
+}}).
+2026-08-06T13:19:31.183Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-08-06T13:19:31.183Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Auto-executing [upgrade plan](/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/.github/modernize/java-upgrade/20260806131703/plan.md)"
+}}).
+2026-08-06T13:19:31.183Z [INFO] ----------------------prepared appmod-confirm-upgrade-plan----------------------
+2026-08-06T13:19:33.648Z [INFO] ----------------------invoke appmod-confirm-upgrade-plan----------------------
+2026-08-06T13:19:33.648Z [INFO] [Tool.invoke]({name: appmod-confirm-upgrade-plan, modelId: auto, input: {
+  "sessionId": "20260806131703",
+  "autoExecute": true
+}}).
+2026-08-06T13:19:33.648Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:19:33.648Z [INFO] Upgrade plan confirmed successfully.
+2026-08-06T13:19:33.648Z [INFO] [Tool.invoke]({result: {
+  "message": "Generated plan is reviewed and confirmed by the user! the upgrade process will start now."
+}}).
+2026-08-06T13:19:33.648Z [INFO] ----------------------invoked appmod-confirm-upgrade-plan----------------------
+2026-08-06T13:19:53.652Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-08-06T13:19:53.652Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "planExecutionStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Execution phase started for Java 21 upgrade."
+}}).
+2026-08-06T13:19:53.652Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-08-06T13:19:53.652Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-08-06T13:19:53.652Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-08-06T13:19:53.770Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-08-06T13:19:53.770Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "planExecutionStarted",
+  "status": "succeeded",
+  "phase": "execute",
+  "message": "Execution phase started for Java 21 upgrade."
+}}).
+2026-08-06T13:19:53.770Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:19:53.783Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'planExecutionStarted' reported!\nSession ID: 20260806131703,\nSession Dir: /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/.github/modernize/java-upgrade/20260806131703"
+}}).
+2026-08-06T13:19:53.783Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-08-06T13:34:21.699Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-08-06T13:34:21.715Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 2,
+    "stepTitle": "Baseline Validation",
+    "commitId": "N/A"
+  },
+  "message": "Baseline build and test validation completed successfully."
+}}).
+2026-08-06T13:34:21.715Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-08-06T13:34:21.716Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-08-06T13:34:21.716Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-08-06T13:34:21.998Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-08-06T13:34:21.999Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "buildCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 2,
+    "stepTitle": "Baseline Validation",
+    "commitId": "N/A"
+  },
+  "message": "Baseline build and test validation completed successfully."
+}}).
+2026-08-06T13:34:21.999Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:34:22.000Z [INFO] Project /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d is not a maven project, try to get java version from gradle
+2026-08-06T13:34:22.006Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'buildCompleted' reported!\nSession ID: 20260806131703,\nSession Dir: /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/.github/modernize/java-upgrade/20260806131703"
+}}).
+2026-08-06T13:34:22.006Z [INFO] ----------------------invoked appmod-report-event----------------------
+2026-08-06T13:34:22.058Z [INFO] Try to get java version from gradle config files: 
+2026-08-06T13:34:22.058Z [INFO] Try to get java version from gradle properties: undefined
+2026-08-06T13:34:22.059Z [INFO] Project java version: 8
+2026-08-06T13:34:26.112Z [INFO] ---------------------prepare appmod-report-event----------------------
+2026-08-06T13:34:26.112Z [INFO] [Tool.prepareInvocation]({name: appmod-report-event, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "upgradeValidationCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 3,
+    "stepTitle": "Final Validation",
+    "commitId": "N/A"
+  },
+  "message": "Final validation succeeded: project compiles and all tests pass on Java 21."
+}}).
+2026-08-06T13:34:26.112Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2026-08-06T13:34:26.112Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Report upgrade event"
+}}).
+2026-08-06T13:34:26.112Z [INFO] ----------------------prepared appmod-report-event----------------------
+2026-08-06T13:34:26.311Z [INFO] ----------------------invoke appmod-report-event----------------------
+2026-08-06T13:34:26.311Z [INFO] [Tool.invoke]({name: appmod-report-event, modelId: auto, input: {
+  "sessionId": "20260806131703",
+  "projectPath": "/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0",
+  "event": "upgradeValidationCompleted",
+  "status": "succeeded",
+  "phase": "execute",
+  "details": {
+    "stepNumber": 3,
+    "stepTitle": "Final Validation",
+    "commitId": "N/A"
+  },
+  "message": "Final validation succeeded: project compiles and all tests pass on Java 21."
+}}).
+2026-08-06T13:34:26.311Z [INFO] [Tool.invoke] do invoke.
+2026-08-06T13:34:26.311Z [INFO] [Tool.invoke]({result: {
+  "message": "Event 'upgradeValidationCompleted' reported!\nSession ID: 20260806131703,\nSession Dir: /home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/.github/modernize/java-upgrade/20260806131703"
+}}).
+2026-08-06T13:34:26.311Z [INFO] ----------------------invoked appmod-report-event----------------------
