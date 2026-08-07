@@ -3,7 +3,7 @@ exhibition-registration/
 └── src/
     └── main/
         ├── java/
-        │   └── com/
+        │   └── vu/
         │       └── exhibition/
         │           ├── dao/
         │           │   └── ParticipantDAO.java
