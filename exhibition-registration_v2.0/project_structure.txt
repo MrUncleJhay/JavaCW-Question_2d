@@ -4,13 +4,13 @@ exhibition-registration/
 └── src/
     ├── main/
     │   ├── java/vu/exhibition/
-    │   │   ├── model/
-    │   │   │   └── Participant.java        ✅
-    │   │   ├── dao/                        
-    │   │   ├── database/
-    │   │   │   └── DatabaseConnection.java ✅
-    │   │   ├── ui/                         
-    │   │   └── util/                       ✅
+    │   │   ├── model/                      ✅
+    │   │   ├── dao/                        ✅
+    │   │   ├── database/                   ✅ 
+    │   │   ├── ui/
+    │   │   │   └── MainFrame.java          ✅
+    │   │   │   └── ViewParticipantsDialog.java 
+    │   │   └── util/                       ✅ 
     │   └── resources/
     │       └── config.properties    ✅
     └── test/java/vu/exhibition/

@@ -13,42 +13,54 @@ import vu.exhibition.database.DatabaseConnection;
 import vu.exhibition.model.Participant;
 
 public class ParticipantDAO {
-    
+
+    private static final String INSERT_SQL =
+            "INSERT INTO participants (full_name, email, phone, category, registration_date) " +
+            "VALUES (?, ?, ?, ?, ?)";
+
+    private static final String SELECT_ALL_SQL =
+            "SELECT id, full_name, email, phone, category, registration_date " +
+            "FROM participants ORDER BY id";
+
     public void insert(Participant participant) throws SQLException {
-        String sql = "INSERT INTO participants (full_name, email, phone, category, registration_date) VALUES (?, ?, ?, ?, ?)";
-        
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, participant.getFullName());
-            pstmt.setString(2, participant.getEmail());
-            pstmt.setString(3, participant.getPhone());
-            pstmt.setString(4, participant.getCategory());
-            pstmt.setString(5, participant.getRegistrationDate().toString());
-            
-            pstmt.executeUpdate();
+             PreparedStatement stmt = conn.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, participant.getFullName());
+            stmt.setString(2, participant.getEmail());
+            stmt.setString(3, participant.getPhone());
+            stmt.setString(4, participant.getCategory());
+            stmt.setString(5, participant.getRegistrationDate().toString());
+
+            stmt.executeUpdate();
+
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    participant.setId(keys.getInt(1));
+                }
+            }
         }
     }
 
     public List<Participant> getAll() throws SQLException {
-        List<Participant> list = new ArrayList<>();
-        String sql = "SELECT id, full_name, email, phone, category, registration_date FROM participants";
-        
+        List<Participant> participants = new ArrayList<>();
+
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            
+             PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_SQL);
+             ResultSet rs = stmt.executeQuery()) {
+
             while (rs.next()) {
-                Participant p = new Participant();
-                p.setId(rs.getInt("id"));
-                p.setFullName(rs.getString("full_name"));
-                p.setEmail(rs.getString("email"));
-                p.setPhone(rs.getString("phone"));
-                p.setCategory(rs.getString("category"));
-                p.setRegistrationDate(LocalDate.parse(rs.getString("registration_date")));
-                list.add(p);
+                participants.add(new Participant(
+                        rs.getInt("id"),
+                        rs.getString("full_name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("category"),
+                        LocalDate.parse(rs.getString("registration_date"))
+                ));
             }
         }
-        return list;
+
+        return participants;
     }
 }
