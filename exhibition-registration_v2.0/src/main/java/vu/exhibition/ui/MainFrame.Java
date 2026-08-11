@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -22,6 +23,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main window of the Exhibition Registration application.
+ * <p>
+ * Layout (frame shell, inputs, buttons) was built in Part 5a. This part
+ * wires the Register button to a validation gate only: every
+ * field is checked, in spec order, with a specific dialog per failure.
+ * Nothing is saved yet — building the {@code Participant} and calling
+ * the DAO is Part 5b-ii. Clear and View All are wired in Part 5c.
+ */
 public class MainFrame extends JFrame {
 
     private static final String CATEGORY_PLACEHOLDER = "-- Select Category --";
@@ -41,6 +51,7 @@ public class MainFrame extends JFrame {
         super("Exhibition Registration");
         initComponents();
         layoutComponents();
+        initListeners();
         configureFrame();
     }
 
@@ -49,6 +60,9 @@ public class MainFrame extends JFrame {
         emailField = new JTextField(20);
         phoneField = new JTextField(20);
 
+        // Placeholder first, then the real options straight from
+        // ValidationUtils so the dropdown can never drift out of sync
+        // with what isValidCategory() actually accepts.
         List<String> categoryOptions = new ArrayList<>();
         categoryOptions.add(CATEGORY_PLACEHOLDER);
         categoryOptions.addAll(ValidationUtils.CATEGORIES);
@@ -115,5 +129,53 @@ public class MainFrame extends JFrame {
         pack();
         setMinimumSize(getSize());
         setLocationRelativeTo(null);
+    }
+
+    private void initListeners() {
+        registerButton.addActionListener(e -> handleRegister());
+        // clearButton / viewAllButton listeners are added in Part 5c.
+    }
+
+    /**
+     * Validates the form in spec order — name, email, phone, category —
+     * stopping at the first failure with a specific dialog explaining
+     * exactly what's wrong. Part 5b-ii picks up from the end of this
+     * method: building the {@code Participant} and saving it.
+     */
+    private void handleRegister() {
+        String name = nameField.getText().trim();
+        String email = emailField.getText().trim();
+        String phone = phoneField.getText().trim();
+        String category = (String) categoryCombo.getSelectedItem();
+
+        if (!ValidationUtils.isValidName(name)) {
+            showValidationError("Full name cannot be empty.", nameField);
+            return;
+        }
+        if (!ValidationUtils.isValidEmail(email)) {
+            showValidationError("Please enter a valid email address (it must contain '@' and '.').", emailField);
+            return;
+        }
+        if (!ValidationUtils.isValidPhone(phone)) {
+            showValidationError("Please enter a valid contact number (at least 8 digits).", phoneField);
+            return;
+        }
+        if (!ValidationUtils.isValidCategory(category)) {
+            showValidationError("Please select an exhibition category.", categoryCombo);
+            return;
+        }
+
+        // Part 5b-ii continues here: build the Participant from
+        // name/email/phone/category/today's date, call
+        // participantDAO.insert(...), and handle success / duplicate
+        // email / other SQLException with their own specific dialogs.
+    }
+
+    private void showValidationError(String message, JComponent fieldToFocus) {
+        JOptionPane.showMessageDialog(this, message, "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        fieldToFocus.requestFocusInWindow();
+        if (fieldToFocus instanceof JTextField textField) {
+            textField.selectAll();
+        }
     }
 }
