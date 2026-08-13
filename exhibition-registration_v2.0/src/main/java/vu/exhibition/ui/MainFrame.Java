@@ -1,5 +1,8 @@
 package vu.exhibition.ui;
 
+import vu.exhibition.dao.ParticipantDAO;
+import vu.exhibition.database.DatabaseConnection;
+import vu.exhibition.model.Participant;
 import vu.exhibition.util.ValidationUtils;
 
 import javax.swing.BorderFactory;
@@ -11,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,16 +31,20 @@ import java.util.List;
 /**
  * Main window of the Exhibition Registration application.
  * <p>
- * Layout (frame shell, inputs, buttons) was built in Part 5a. This part
- * wires the Register button to a validation gate only: every
- * field is checked, in spec order, with a specific dialog per failure.
- * Nothing is saved yet — building the {@code Participant} and calling
- * the DAO is Part 5b-ii. Clear and View All are wired in Part 5c.
+ * Layout (frame shell, inputs, buttons) was built in Part 5a. Register's
+ * validation and save logic was wired in Parts 5b-i/5b-ii. This part
+ * (5c) finishes the class: Clear resets the form, View All opens
+ * {@link ViewParticipantsDialog}, and {@link #main} is the application
+ * entry point, which initializes the database before showing any UI so
+ * a broken database fails fast with a clear message instead of a half
+ * -working window.
  */
 public class MainFrame extends JFrame {
 
     private static final String CATEGORY_PLACEHOLDER = "-- Select Category --";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private final ParticipantDAO participantDAO = new ParticipantDAO();
 
     private JTextField nameField;
     private JTextField emailField;
@@ -133,14 +142,16 @@ public class MainFrame extends JFrame {
 
     private void initListeners() {
         registerButton.addActionListener(e -> handleRegister());
-        // clearButton / viewAllButton listeners are added in Part 5c.
+        clearButton.addActionListener(e -> clearForm());
+        viewAllButton.addActionListener(e -> handleViewAll());
     }
 
     /**
      * Validates the form in spec order — name, email, phone, category —
      * stopping at the first failure with a specific dialog explaining
-     * exactly what's wrong. Part 5b-ii picks up from the end of this
-     * method: building the {@code Participant} and saving it.
+     * exactly what's wrong. Once everything passes, saves via the DAO
+     * and shows the matching outcome: success, duplicate email, or any
+     * other database error.
      */
     private void handleRegister() {
         String name = nameField.getText().trim();
@@ -165,10 +176,35 @@ public class MainFrame extends JFrame {
             return;
         }
 
-        // Part 5b-ii continues here: build the Participant from
-        // name/email/phone/category/today's date, call
-        // participantDAO.insert(...), and handle success / duplicate
-        // email / other SQLException with their own specific dialogs.
+        // Computed fresh rather than parsed back from dateField's display
+        // text, so the saved value is genuinely "now" even if the form
+        // has been sitting open since before midnight.
+        Participant participant = new Participant(name, email, phone, category, LocalDate.now());
+
+        try {
+            participantDAO.insert(participant);
+            JOptionPane.showMessageDialog(this,
+                    participant.getFullName() + " has been registered successfully!\n"
+                            + "Participant ID: " + participant.getId(),
+                    "Registration Successful",
+                    JOptionPane.INFORMATION_MESSAGE);
+            clearForm();
+        } catch (SQLException e) {
+            if (e.getMessage() != null && e.getMessage().contains("UNIQUE")) {
+                JOptionPane.showMessageDialog(this,
+                        "A participant with this email is already registered.",
+                        "Duplicate Email",
+                        JOptionPane.ERROR_MESSAGE);
+                emailField.requestFocusInWindow();
+                emailField.selectAll();
+            } else {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                        "Registration failed due to a database error:\n" + e.getMessage(),
+                        "Database Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void showValidationError(String message, JComponent fieldToFocus) {
@@ -177,5 +213,60 @@ public class MainFrame extends JFrame {
         if (fieldToFocus instanceof JTextField textField) {
             textField.selectAll();
         }
+    }
+
+    /**
+     * Resets every field to its just-opened state. Called after a
+     * successful registration, and by the Clear button directly.
+     */
+    private void clearForm() {
+        nameField.setText("");
+        emailField.setText("");
+        phoneField.setText("");
+        categoryCombo.setSelectedIndex(0);
+        dateField.setText(LocalDate.now().format(DATE_FORMAT));
+        nameField.requestFocusInWindow();
+    }
+
+    /**
+     * Fetches every participant and opens {@link ViewParticipantsDialog}
+     * to display them. A fetch failure shows the same generic
+     * database-error dialog style used by Register, and the dialog is
+     * never opened in that case.
+     */
+    private void handleViewAll() {
+        try {
+            List<Participant> participants = participantDAO.getAll();
+            new ViewParticipantsDialog(this, participants).setVisible(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Could not load the participant list:\n" + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Application entry point. Initializes the database on the EDT
+     * before constructing any UI, so a database that fails to
+     * initialize is reported as a clear startup error instead of
+     * surfacing later as a broken button click.
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                DatabaseConnection.getInstance();
+                new MainFrame().setVisible(true);
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                        "The application could not start because the database "
+                                + "could not be initialized:\n" + e.getMessage(),
+                        "Startup Error",
+                        JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            }
+        });
     }
 }
