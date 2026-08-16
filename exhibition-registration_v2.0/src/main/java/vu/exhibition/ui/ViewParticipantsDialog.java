@@ -19,13 +19,11 @@ import javax.swing.table.AbstractTableModel;
 import vu.exhibition.model.Participant;
 
 /**
- * Read-only dialog listing every registered participant in a table.
- * <p>
- * Part 6a built the table, its model, and the dialog's scroll/sizing
- * chrome. This part (6b) adds the Close button. {@code
- * MainFrame.handleViewAll()} has been unchanged since Part 5c — it
- * starts opening this real class instead of the Part 5c test stub the
- * moment this file exists in the real package.
+ * Read-only dialog listing every registered participant in a sortable
+ * table, wrapped in a scroll pane with a Close button. Constructed with
+ * the participant list already fetched — see
+ * {@code MainFrame.handleViewAll()} — so this class has no database
+ * concerns of its own.
  */
 public class ViewParticipantsDialog extends JDialog {
 
