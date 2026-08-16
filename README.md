@@ -42,7 +42,7 @@ java -jar target/exhibition-registration-1.0.jar
 
 ## ✨ Features
 - **Participant Registration** – Full Name, Email, Contact Number, Exhibition Category
-- ***Validation** – Real-time validation with user-friendly error messages
+- **Validation** – Real-time validation with user-friendly error messages
 - **SQLite Database** – Lightweight, file-based storage (```participants.db```)
 - **View All Participants** – JTable with scrollable list of all registrations
 - **MVC Architecture** – Clean separation of Model, View, and Controller layers
