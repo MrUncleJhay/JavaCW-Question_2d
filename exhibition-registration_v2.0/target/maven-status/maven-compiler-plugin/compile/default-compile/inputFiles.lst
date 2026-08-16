@@ -1,6 +1,6 @@
-/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/com/exhibition/model/Participant.java
-/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/com/exhibition/util/ValidationUtils.java
-/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/com/exhibition/uni/ViewParticipantsDialog.java
-/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/com/exhibition/dao/ParticipantDAO.java
-/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/com/exhibition/util/ConfigLoader.java
-/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/com/exhibition/database/DatabaseConnection.java
+/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/vu/exhibition/dao/ParticipantDAO.java
+/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/vu/exhibition/database/DatabaseConnection.java
+/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/vu/exhibition/model/Participant.java
+/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/vu/exhibition/ui/ViewParticipantsDialog.java
+/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/vu/exhibition/util/ConfigLoader.java
+/home/new-bee/The-Hive/PROJECTS/JavaCW-Question_2d/exhibition-registration_v2.0/src/main/java/vu/exhibition/util/ValidationUtils.java

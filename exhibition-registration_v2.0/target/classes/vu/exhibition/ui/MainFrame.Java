@@ -31,13 +31,13 @@ import java.util.List;
 /**
  * Main window of the Exhibition Registration application.
  * <p>
- * Layout (frame shell, inputs, buttons) was built in Part 5a. Register's
- * validation and save logic was wired in Parts 5b-i/5b-ii. This part
- * (5c) finishes the class: Clear resets the form, View All opens
- * {@link ViewParticipantsDialog}, and {@link #main} is the application
- * entry point, which initializes the database before showing any UI so
- * a broken database fails fast with a clear message instead of a half
- * -working window.
+ * Presents the registration form — name, email, phone, category, and an
+ * auto-filled date — alongside Register, Clear, and View All actions.
+ * Register validates every field in turn, showing a specific dialog for
+ * whichever check fails first; once everything passes, the record is
+ * saved via {@link ParticipantDAO} and the form resets. View All opens
+ * {@link ViewParticipantsDialog} with every saved participant.
+ * {@link #main} is the application entry point.
  */
 public class MainFrame extends JFrame {
 
@@ -248,12 +248,28 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     * Application entry point. Initializes the database on the EDT
-     * before constructing any UI, so a database that fails to
-     * initialize is reported as a clear startup error instead of
-     * surfacing later as a broken button click.
+     * Application entry point.
+     * <p>
+     * Installs a JVM-wide safety net for any exception that isn't
+     * already handled by a more specific catch block elsewhere in this
+     * class — bad input, a duplicate email, and a database error each
+     * already show their own specific dialog; this is only a backstop
+     * for a genuinely unexpected bug, so a failure surfaces as a message
+     * instead of a button that silently does nothing. Then initializes
+     * the database on the EDT before constructing any UI, so a database
+     * that fails to initialize is reported as a clear startup error
+     * instead of surfacing later as a broken button click.
      */
     public static void main(String[] args) {
+        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+            throwable.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "An unexpected error occurred and the last action may "
+                            + "not have completed:\n" + throwable,
+                    "Unexpected Error",
+                    JOptionPane.ERROR_MESSAGE);
+        });
+
         SwingUtilities.invokeLater(() -> {
             try {
                 DatabaseConnection.getInstance();
