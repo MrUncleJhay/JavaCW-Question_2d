@@ -1,7 +1,0 @@
-com/exhibition/ui/ViewParticipantsDialog$1.class
-com/exhibition/model/Participant.class
-com/exhibition/util/ConfigLoader.class
-com/exhibition/database/DatabaseConnection.class
-com/exhibition/util/ValidationUtils.class
-com/exhibition/dao/ParticipantDAO.class
-com/exhibition/ui/ViewParticipantsDialog.class
