@@ -1,65 +1,142 @@
 package vu.exhibition.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.WindowConstants;
+import javax.swing.table.AbstractTableModel;
 
-import vu.exhibition.dao.ParticipantDAO;
 import vu.exhibition.model.Participant;
 
+/**
+ * Read-only dialog listing every registered participant in a table.
+ * <p>
+ * Part 6a built the table, its model, and the dialog's scroll/sizing
+ * chrome. This part (6b) adds the Close button. {@code
+ * MainFrame.handleViewAll()} has been unchanged since Part 5c — it
+ * starts opening this real class instead of the Part 5c test stub the
+ * moment this file exists in the real package.
+ */
 public class ViewParticipantsDialog extends JDialog {
-    private JTable table;
-    private DefaultTableModel tableModel;
-    private final ParticipantDAO participantDAO = new ParticipantDAO();
 
-    public ViewParticipantsDialog(Frame owner) {
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final int[] COLUMN_WIDTHS = {40, 140, 180, 120, 100, 120};
+
+    private final JTable participantsTable;
+
+    public ViewParticipantsDialog(Frame owner, List<Participant> participants) {
         super(owner, "Registered Participants", true);
-        initializeUI();
-        loadData();
+        this.participantsTable = buildTable(participants);
+        layoutDialog();
+        configureDialog(owner);
     }
 
-    private void initializeUI() {
-        setSize(650, 400);
-        setLocationRelativeTo(getOwner());
+    private JTable buildTable(List<Participant> participants) {
+        JTable table = new JTable(new ParticipantTableModel(participants));
+        table.setAutoCreateRowSorter(true);
+        table.setPreferredScrollableViewportSize(new Dimension(700, 300));
+        setColumnWidths(table);
+        return table;
+    }
+
+    private void setColumnWidths(JTable table) {
+        for (int i = 0; i < COLUMN_WIDTHS.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(COLUMN_WIDTHS[i]);
+        }
+    }
+
+    private void layoutDialog() {
+        JScrollPane scrollPane = new JScrollPane(participantsTable);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         setLayout(new BorderLayout());
-
-        String[] columns = {"ID", "Full Name", "Email", "Contact", "Category", "Reg Date"};
-        tableModel = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) { return false; }
-        };
-        
-        table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
+        add(buildButtonPanel(), BorderLayout.SOUTH);
+    }
 
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    private JPanel buildButtonPanel() {
         JButton closeButton = new JButton("Close");
         closeButton.addActionListener(e -> dispose());
-        bottomPanel.add(closeButton);
-        add(bottomPanel, BorderLayout.SOUTH);
+        getRootPane().setDefaultButton(closeButton);
+
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 8));
+        panel.add(closeButton);
+        return panel;
     }
 
-    private void loadData() {
-        try {
-            List<Participant> participants = participantDAO.getAll();
-            for (Participant p : participants) {
-                tableModel.addRow(new Object[]{
-                    p.getId(), p.getFullName(), p.getEmail(), p.getPhone(), p.getCategory(), p.getRegistrationDate()
-                });
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error fetching records: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    private void configureDialog(Frame owner) {
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        pack();
+        setMinimumSize(getSize());
+        setLocationRelativeTo(owner);
+    }
+
+    /**
+     * Read-only table model backed directly by a {@code List<Participant>}
+     * — no intermediate {@code Object[][]} copy. Every cell is
+     * non-editable: there is no DAO {@code update()} method, so an
+     * editable cell would let the user "change" a value that's silently
+     * discarded the next time this dialog is opened.
+     */
+    private static class ParticipantTableModel extends AbstractTableModel {
+
+        private static final String[] COLUMN_NAMES = {
+                "ID", "Full Name", "Email", "Phone", "Category", "Registration Date"
+        };
+
+        private final List<Participant> participants;
+
+        ParticipantTableModel(List<Participant> participants) {
+            this.participants = participants;
+        }
+
+        @Override
+        public int getRowCount() {
+            return participants.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return COLUMN_NAMES.length;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            return COLUMN_NAMES[column];
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return columnIndex == 0 ? Integer.class : String.class;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Participant p = participants.get(rowIndex);
+            return switch (columnIndex) {
+                case 0 -> p.getId();
+                case 1 -> p.getFullName();
+                case 2 -> p.getEmail();
+                case 3 -> p.getPhone();
+                case 4 -> p.getCategory();
+                case 5 -> p.getRegistrationDate().format(DATE_FORMAT);
+                default -> throw new IllegalArgumentException("Unknown column: " + columnIndex);
+            };
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
         }
     }
 }

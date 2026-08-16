@@ -6,11 +6,11 @@ exhibition-registration/
     │   ├── java/vu/exhibition/
     │   │   ├── model/                      ✅
     │   │   ├── dao/                        ✅
-    │   │   ├── database/                   ✅ 
+    │   │   ├── database/                   ✅
     │   │   ├── ui/
-    │   │   │   └── MainFrame.java          ✅
-    │   │   │   └── ViewParticipantsDialog.java 
-    │   │   └── util/                       ✅ 
+    │   │   │   ├── MainFrame.java          ✅
+    │   │   │   └── ViewParticipantsDialog.java  ✅
+    │   │   └── util/                       ✅
     │   └── resources/
     │       └── config.properties    ✅
     └── test/java/vu/exhibition/
